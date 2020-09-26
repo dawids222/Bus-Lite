@@ -1,4 +1,4 @@
-﻿namespace Bus_Lite
+﻿namespace Bus_Lite.Listeners
 {
     public interface IEventListener
     {

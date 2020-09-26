@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bus_Lite
+namespace Bus_Lite.Listeners
 {
     public class GenericEventListener<TEvent> : IEventListener
     {

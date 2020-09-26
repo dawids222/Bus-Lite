@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Unit_Tests
+namespace Unit_Tests.Token
 {
     [TestClass]
     public class SubscriptionTokenTest
@@ -18,7 +18,7 @@ namespace Unit_Tests
         [TestMethod]
         public void ContainsCurrentDateTime()
         {
-            Assert.AreEqual(DateTime.Now, Token.GenerationDateTime);
+            Assert.AreEqual(DateTime.Now.Date.ToString(), Token.GenerationDateTime.Date.ToString());
         }
 
         [TestMethod]
