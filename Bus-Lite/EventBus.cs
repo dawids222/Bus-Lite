@@ -8,8 +8,8 @@ namespace Bus_Lite
 {
     public class EventBus
     {
-        private List<IEventListener> _listeners { get; } = new List<IEventListener>();
-        public IEnumerable<IEventListener> Listeners { get => _listeners; }
+        private List<IEventListener> listeners { get; } = new List<IEventListener>();
+        public IEnumerable<IEventListener> Listeners { get => listeners; }
 
         private object lockObj { get; } = new object();
 
@@ -24,25 +24,25 @@ namespace Bus_Lite
             if (owner is SubscriptionToken) { throw new SubscriptionTokenOwnerException(); }
             var token = new SubscriptionToken();
             var listener = new GenericEventListener<T>(owner, token, callback);
-            _listeners.Add(listener);
+            listeners.Add(listener);
             return token;
         }
 
         public void Unsubscribe(object owner)
         {
             lock (lockObj)
-                _listeners.RemoveAll(x => x.Owner == owner);
+                listeners.RemoveAll(x => x.Owner == owner);
         }
 
         public void Unsubscribe(SubscriptionToken token)
         {
             lock (lockObj)
-                _listeners.Remove(GetListener(token));
+                listeners.Remove(GetListener(token));
         }
 
         private IEventListener GetListener(SubscriptionToken token)
         {
-            return _listeners.FirstOrDefault(x => x.Token == token);
+            return listeners.FirstOrDefault(x => x.Token == token);
         }
 
         public void Push(object @event)
@@ -53,7 +53,7 @@ namespace Bus_Lite
 
         private void PushInner(object @event)
         {
-            _listeners.ForEach(listener =>
+            listeners.ForEach(listener =>
             {
                 if (listener.ShouldHandle(@event))
                 {
