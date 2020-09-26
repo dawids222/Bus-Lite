@@ -2,6 +2,7 @@
 using Bus_Lite.Listeners;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bus_Lite
 {
@@ -36,7 +37,12 @@ namespace Bus_Lite
         public void Unsubscribe(SubscriptionToken token)
         {
             lock (lockObj)
-                _listeners.RemoveAll(x => x.Token == token);
+                _listeners.Remove(GetListener(token));
+        }
+
+        private IEventListener GetListener(SubscriptionToken token)
+        {
+            return _listeners.FirstOrDefault(x => x.Token == token);
         }
 
         public void Push(object @event)

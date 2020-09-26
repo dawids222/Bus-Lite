@@ -39,7 +39,7 @@ namespace Unit_Tests.Bus
         [TestMethod]
         public void UnsubscribeByTokenIsThreadSafe()
         {
-            var iterations = 1000;
+            var iterations = 10000;
             var tokens = new List<SubscriptionToken>();
             for (var i = 0; i < iterations; i++)
             {
@@ -73,7 +73,7 @@ namespace Unit_Tests.Bus
         [TestMethod]
         public void UnsubscribeByOwnerIsThreadSafe()
         {
-            var iterations = 1000;
+            var iterations = 2000;
             var owners = new List<object>();
             for (var i = 0; i < iterations; i++)
             {

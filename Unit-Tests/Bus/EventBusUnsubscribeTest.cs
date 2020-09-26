@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bus_Lite;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
 namespace Unit_Tests.Bus
@@ -10,10 +11,22 @@ namespace Unit_Tests.Bus
         public void RemovesListenerByToken()
         {
             var token = EventBus.Subscribe<string>(this, (x) => { });
-            EventBus.Subscribe<string>(this, (x) => { });
             EventBus.Unsubscribe(token);
 
-            Assert.AreEqual(1, EventBus.Listeners.Count());
+            Assert.AreEqual(0, EventBus.Listeners.Count());
+        }
+
+        [TestMethod]
+        public void RemovesNothingWhenTokenIsNull()
+        {
+            EventBus.Unsubscribe(null);
+        }
+
+        [TestMethod]
+        public void RemovesNothingWhenTokenIsNonExisting()
+        {
+            var token = new SubscriptionToken();
+            EventBus.Unsubscribe(token);
         }
 
         [TestMethod]
@@ -22,12 +35,10 @@ namespace Unit_Tests.Bus
             EventBus.Subscribe<string>(this, (x) => { });
             EventBus.Subscribe<string>(this, (x) => { });
             EventBus.Subscribe<string>(this, (x) => { });
-            EventBus.Subscribe<string>("", (x) => { });
 
             EventBus.Unsubscribe(this);
 
-            Assert.AreEqual(1, EventBus.Listeners.Count());
-            Assert.AreEqual("", EventBus.Listeners.ElementAt(0).Owner);
+            Assert.AreEqual(0, EventBus.Listeners.Count());
         }
     }
 }
