@@ -47,14 +47,6 @@ namespace Unit_Tests
         }
 
         [TestMethod]
-        public void SubscriptionTokenContainsCurrentDateTime()
-        {
-            var token = EventBus.Subscribe<string>(this, (x) => { });
-
-            Assert.AreEqual(DateTime.Now, token.GenerationDateTime);
-        }
-
-        [TestMethod]
         public void RemovesListenerByToken()
         {
             var token = EventBus.Subscribe<string>(this, (x) => { });

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="EventBusTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubscriptionTokenTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
