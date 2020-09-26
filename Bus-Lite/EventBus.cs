@@ -9,7 +9,15 @@ namespace Bus_Lite
         private List<IEventListener> _listeners { get; } = new List<IEventListener>();
         public IEnumerable<IEventListener> Listeners { get => _listeners; }
 
+        private object lockObj { get; } = new object();
+
         public SubscriptionToken Subscribe<T>(object owner, Action<T> callback)
+        {
+            lock (lockObj)
+                return SubscribeInner(owner, callback);
+        }
+
+        private SubscriptionToken SubscribeInner<T>(object owner, Action<T> callback)
         {
             if (owner is SubscriptionToken) { throw new SubscriptionTokenOwnerException(); }
             var token = new SubscriptionToken();
@@ -20,15 +28,23 @@ namespace Bus_Lite
 
         public void Unsubscribe(object owner)
         {
-            _listeners.RemoveAll(x => x.Owner == owner);
+            lock (lockObj)
+                _listeners.RemoveAll(x => x.Owner == owner);
         }
 
         public void Unsubscribe(SubscriptionToken token)
         {
-            _listeners.RemoveAll(x => x.Token == token);
+            lock (lockObj)
+                _listeners.RemoveAll(x => x.Token == token);
         }
 
         public void Push(object @event)
+        {
+            lock (lockObj)
+                PushInner(@event);
+        }
+
+        private void PushInner(object @event)
         {
             _listeners.ForEach(listener =>
             {
