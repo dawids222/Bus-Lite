@@ -1,4 +1,5 @@
 ﻿using Bus_Lite;
+using Bus_Lite.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
@@ -42,6 +43,14 @@ namespace Unit_Tests
         {
             var token = EventBus.Subscribe<string>(this, (x) => { });
 
+            Assert.IsTrue(token is SubscriptionToken);
+        }
+
+        [TestMethod]
+        public void SubscriptionTokenContainsCurrentDateTime()
+        {
+            var token = EventBus.Subscribe<string>(this, (x) => { });
+
             Assert.AreEqual(DateTime.Now, token.GenerationDateTime);
         }
 
@@ -70,6 +79,14 @@ namespace Unit_Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(SubscriptionTokenOwnerException))]
+        public void X()
+        {
+            var token = EventBus.Subscribe<string>(this, (x) => { });
+            EventBus.Subscribe<string>(token, (x) => { });
+        }
+
+        [TestMethod]
         public void PushesEventToListeners()
         {
             var expected = "success";
@@ -94,7 +111,7 @@ namespace Unit_Tests
         }
 
         [TestMethod]
-        public void ListenersWorsWithGenericEvents()
+        public void ListenersWorksWithGenericEvents()
         {
             var counter = 0;
             EventBus.Subscribe<IEvent>(this, (x) => { counter++; });
