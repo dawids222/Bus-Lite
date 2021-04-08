@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Bus\EventBusBaseTest.cs" />
     <Compile Include="Bus\EventBusPushTest.cs" />
+    <Compile Include="Bus\EventBusSubscribeBaseTest.cs" />
     <Compile Include="Bus\EventBusSubscribeHandlerTest.cs" />
     <Compile Include="Bus\EventBusSubscribeCallbackTest.cs" />
     <Compile Include="Bus\EventBusThreadSafeTest.cs" />
