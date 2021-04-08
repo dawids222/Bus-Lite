@@ -1,12 +1,13 @@
 ﻿using Bus_Lite;
 using Bus_Lite.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 
 namespace Unit_Tests.Bus
 {
     [TestClass]
-    public class EventBusSubscribeTest : EventBusBaseTest
+    public class EventBusSubscribeCallbackTest : EventBusBaseTest
     {
         [TestMethod]
         public void AddsListener()
@@ -35,6 +36,14 @@ namespace Unit_Tests.Bus
         {
             var token = EventBus.Subscribe<string>(this, (x) => { });
             EventBus.Subscribe<string>(token, (x) => { });
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullHandlerException))]
+        public void CallbackCanNotBeNull()
+        {
+            Action<string> callback = null;
+            EventBus.Subscribe(this, callback);
         }
 
         [TestMethod]

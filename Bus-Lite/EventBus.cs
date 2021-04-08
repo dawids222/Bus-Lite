@@ -1,4 +1,5 @@
 ﻿using Bus_Lite.Exceptions;
+using Bus_Lite.Handlers;
 using Bus_Lite.Listeners;
 using System;
 using System.Collections.Generic;
@@ -15,15 +16,21 @@ namespace Bus_Lite
 
         public SubscriptionToken Subscribe<T>(object owner, Action<T> callback)
         {
-            lock (LockObj)
-                return SubscribeInner(owner, callback);
+            if (callback is null) { throw new NullHandlerException(); }
+            return SubscribeInner(owner, callback);
+        }
+
+        public SubscriptionToken Subscribe<T>(object owner, IEventHandler<T> handler)
+        {
+            if (handler is null) { throw new NullHandlerException(); }
+            return SubscribeInner<T>(owner, handler.Handle);
         }
 
         private SubscriptionToken SubscribeInner<T>(object owner, Action<T> callback)
         {
             if (owner is SubscriptionToken) { throw new SubscriptionTokenOwnerException(); }
             var listener = new GenericEventListener<T>(owner, callback);
-            _listeners.Add(listener);
+            lock (LockObj) { _listeners.Add(listener); }
             return listener.Token;
         }
 

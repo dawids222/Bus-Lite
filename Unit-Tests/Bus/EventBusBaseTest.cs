@@ -9,7 +9,7 @@ namespace Unit_Tests.Bus
         protected EventBus EventBus { get; set; }
 
         [TestInitialize]
-        public void Before()
+        public virtual void Before()
         {
             EventBus = new EventBus();
         }
