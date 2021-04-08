@@ -8,12 +8,11 @@ namespace Bus_Lite.Listeners
         public SubscriptionToken Token { get; }
         public Action<TEvent> Callback { get; }
 
-        public GenericEventListener(object owner, SubscriptionToken token, Action<TEvent> callback
-        )
+        public GenericEventListener(object owner, Action<TEvent> callback)
         {
             Owner = owner;
-            Token = token;
             Callback = callback;
+            Token = new SubscriptionToken();
         }
 
         public void Handle(object @event)

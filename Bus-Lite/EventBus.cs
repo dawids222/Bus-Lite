@@ -8,52 +8,51 @@ namespace Bus_Lite
 {
     public class EventBus
     {
-        private List<IEventListener> listeners { get; } = new List<IEventListener>();
-        public IEnumerable<IEventListener> Listeners { get => listeners; }
+        private readonly List<IEventListener> _listeners = new List<IEventListener>();
+        public IEnumerable<IEventListener> Listeners { get => _listeners; }
 
-        private object lockObj { get; } = new object();
+        private object LockObj { get; } = new object();
 
         public SubscriptionToken Subscribe<T>(object owner, Action<T> callback)
         {
-            lock (lockObj)
+            lock (LockObj)
                 return SubscribeInner(owner, callback);
         }
 
         private SubscriptionToken SubscribeInner<T>(object owner, Action<T> callback)
         {
             if (owner is SubscriptionToken) { throw new SubscriptionTokenOwnerException(); }
-            var token = new SubscriptionToken();
-            var listener = new GenericEventListener<T>(owner, token, callback);
-            listeners.Add(listener);
-            return token;
+            var listener = new GenericEventListener<T>(owner, callback);
+            _listeners.Add(listener);
+            return listener.Token;
         }
 
         public void Unsubscribe(object owner)
         {
-            lock (lockObj)
-                listeners.RemoveAll(x => x.Owner == owner);
+            lock (LockObj)
+                _listeners.RemoveAll(x => x.Owner == owner);
         }
 
         public void Unsubscribe(SubscriptionToken token)
         {
-            lock (lockObj)
-                listeners.Remove(GetListener(token));
+            lock (LockObj)
+                _listeners.Remove(GetListener(token));
         }
 
         private IEventListener GetListener(SubscriptionToken token)
         {
-            return listeners.FirstOrDefault(x => x.Token == token);
+            return _listeners.FirstOrDefault(x => x.Token == token);
         }
 
         public void Push(object @event)
         {
-            lock (lockObj)
+            lock (LockObj)
                 PushInner(@event);
         }
 
         private void PushInner(object @event)
         {
-            listeners.ForEach(listener =>
+            _listeners.ForEach(listener =>
             {
                 if (listener.ShouldHandle(@event))
                 {
