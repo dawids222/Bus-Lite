@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Unit_Tests.Models;
 
 namespace Unit_Tests.Bus
@@ -124,6 +125,36 @@ namespace Unit_Tests.Bus
             var thread2 = new Thread(() =>
             {
                 EventBus.Push("");
+            });
+            thread1.Start();
+            thread2.Start();
+            thread1.Join();
+            thread2.Join();
+
+            Assert.AreEqual(2 * iterations, counter);
+        }
+
+        [TestMethod]
+        public void SendIsThreadSafe()
+        {
+            var iterations = 10000;
+            var counter = 0;
+
+            EventBus.Subscribe<StringEvent, string>(this, async (x) =>
+            {
+                counter++;
+                return await Task.FromResult("");
+            });
+
+            var thread1 = new Thread(async () =>
+            {
+                for (var i = 0; i < iterations; i++)
+                    await EventBus.Send(new StringEvent());
+            });
+            var thread2 = new Thread(async () =>
+            {
+                for (var i = 0; i < iterations; i++)
+                    await EventBus.Send(new StringEvent());
             });
             thread1.Start();
             thread2.Start();

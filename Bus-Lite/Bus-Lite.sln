@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bus-Lite", "Bus-Lite.csproj", "{3438468B-B4B8-4315-BFCF-F29E0852A0AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bus-Lite", "Bus-Lite.csproj", "{3438468B-B4B8-4315-BFCF-F29E0852A0AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit-Tests", "..\Unit-Tests\Unit-Tests.csproj", "{8592F983-5619-4789-BCEF-085827FC4E95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console-Playground", "..\Console-Playground\Console-Playground.csproj", "{5C84956B-33A6-41B3-8B91-6C60F24ABF70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{8592F983-5619-4789-BCEF-085827FC4E95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8592F983-5619-4789-BCEF-085827FC4E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8592F983-5619-4789-BCEF-085827FC4E95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C84956B-33A6-41B3-8B91-6C60F24ABF70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C84956B-33A6-41B3-8B91-6C60F24ABF70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C84956B-33A6-41B3-8B91-6C60F24ABF70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C84956B-33A6-41B3-8B91-6C60F24ABF70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

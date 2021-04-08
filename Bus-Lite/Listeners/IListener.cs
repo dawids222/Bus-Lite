@@ -5,6 +5,6 @@
         object Owner { get; }
         SubscriptionToken Token { get; }
         bool ShouldHandle(object @event);
-        void Handle(object @event);
+        object Handle(object @event);
     }
 }
