@@ -24,7 +24,7 @@ namespace Bus_Lite.Buses
 
         private ObserverToken SubscribeListener<T>(object owner, Action<T> callback)
         {
-            if (owner is ObserverToken) { throw new SubscriptionTokenOwnerException(); }
+            if (owner is ObserverToken) { throw new ObserverTokenOwnerException(); }
             var listener = new ActionEventObserver<T>(owner, callback);
             lock (LockObj) { _observers.Add(listener); }
             return listener.Token;

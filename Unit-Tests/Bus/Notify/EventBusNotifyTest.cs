@@ -1,13 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Unit_Tests.Models;
 
-namespace Unit_Tests.Bus
+namespace Unit_Tests.Bus.Notify
 {
     [TestClass]
     public class EventBusNotifyTest : EventBusBaseTest
     {
         [TestMethod]
-        public void NotifiesListenersAboutPushedEvent()
+        public void NotifiesListenerAboutPushedEvent()
         {
             var expected = "success";
             var result = "";
@@ -16,6 +16,21 @@ namespace Unit_Tests.Bus
             EventBus.Notify(expected);
 
             Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void NotifiesMultipleListenersAboutPushedEvent()
+        {
+            var counter = 0;
+            EventBus.Subscribe<IEvent>(this, (x) => { counter++; });
+            EventBus.Subscribe<IEvent>(this, (x) => { counter++; });
+            EventBus.Subscribe<IEvent>(this, (x) => { counter++; });
+            EventBus.Subscribe<IEvent>(this, (x) => { counter++; });
+            EventBus.Subscribe<IEvent>(this, (x) => { counter++; });
+
+            EventBus.Notify(new Event());
+
+            Assert.AreEqual(5, counter);
         }
 
         [TestMethod]

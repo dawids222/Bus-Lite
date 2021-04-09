@@ -23,7 +23,7 @@ namespace Bus_Lite.Buses
 
         private ObserverToken RegisterHandler<TEvent, TResult>(object owner, Func<TEvent, Task<TResult>> callback)
         {
-            if (owner is ObserverToken) { throw new SubscriptionTokenOwnerException(); }
+            if (owner is ObserverToken) { throw new ObserverTokenOwnerException(); }
             var handler = new FuncEventObserver<TEvent, Task<TResult>>(owner, callback);
             lock (LockObj) { _observers.Add(handler); }
             return handler.Token;

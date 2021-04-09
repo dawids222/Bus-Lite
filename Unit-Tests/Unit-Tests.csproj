@@ -50,15 +50,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bus\EventBusBaseTest.cs" />
-    <Compile Include="Bus\EventBusNotifyTest.cs" />
-    <Compile Include="Bus\EventBusSubscribeBaseTest.cs" />
-    <Compile Include="Bus\EventBusSubscribeListenerTest.cs" />
-    <Compile Include="Bus\EventBusSubscribeCallbackTest.cs" />
-    <Compile Include="Bus\EventBusThreadSafeTest.cs" />
-    <Compile Include="Bus\EventBusRemoveTest.cs" />
+    <Compile Include="Bus\Notify\EventBusHandleTest.cs" />
+    <Compile Include="Bus\Notify\EventBusNotifyTest.cs" />
+    <Compile Include="Bus\Remove\EventBusRemoveBaseTest.cs" />
+    <Compile Include="Bus\Remove\EventBusRemoveHandlersTest.cs" />
+    <Compile Include="Bus\Remove\EventBusRemoveListenersHandlersTest.cs" />
+    <Compile Include="Bus\Subscribe\EventBusRegisterCallbackTest.cs" />
+    <Compile Include="Bus\Subscribe\EventBusSubscribeBaseTest.cs" />
+    <Compile Include="Bus\Subscribe\EventBusSubscribeListenerTest.cs" />
+    <Compile Include="Bus\Subscribe\EventBusSubscribeCallbackTest.cs" />
+    <Compile Include="Bus\Safety\EventBusThreadSafeTest.cs" />
+    <Compile Include="Bus\Remove\EventBusRemoveListenersTest.cs" />
+    <Compile Include="Bus\Subscribe\EventBusSubscribeRegisterTest.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\StringEvent.cs" />
     <Compile Include="Models\StringHandler.cs" />
+    <Compile Include="Models\StringListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Token\ObserverTokenTest.cs" />
   </ItemGroup>

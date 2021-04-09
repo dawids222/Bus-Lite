@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Unit_Tests.Models;
 
-namespace Unit_Tests.Bus
+namespace Unit_Tests.Bus.Safety
 {
     [TestClass]
     public class EventBusThreadSafeTest : EventBusBaseTest
