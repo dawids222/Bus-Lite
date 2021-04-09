@@ -1,103 +1,61 @@
-﻿using Bus_Lite.Events;
-using Bus_Lite.Exceptions;
+﻿using Bus_Lite.Buses;
+using Bus_Lite.Events;
 using Bus_Lite.Handlers;
 using Bus_Lite.Listeners;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Bus_Lite
 {
     public class EventBus
     {
-        private readonly List<IEventListener> _listeners = new List<IEventListener>();
-        public IEnumerable<IEventListener> Listeners { get => _listeners; }
+        private ListenerEventBus ListenerEventBus { get; } = new ListenerEventBus();
+        private HandlerEventBus HandlerEventBus { get; } = new HandlerEventBus();
 
-        private object LockObj { get; } = new object();
+        public IEnumerable<IEventListener> Listeners { get => ListenerEventBus.Listeners; }
+        public IEnumerable<IEventListener> Handlers { get => HandlerEventBus.Listeners; }
 
         public SubscriptionToken Subscribe<T>(object owner, Action<T> callback)
         {
-            if (callback is null) { throw new NullHandlerException(); }
-            return SubscribeActionEventListener(owner, callback);
+            return ListenerEventBus.Subscribe(owner, callback);
         }
 
         public SubscriptionToken Subscribe<T>(object owner, IEventHandler<T> handler)
         {
-            if (handler is null) { throw new NullHandlerException(); }
-            return SubscribeActionEventListener<T>(owner, handler.Handle);
+            return ListenerEventBus.Subscribe(owner, handler);
         }
 
-        private SubscriptionToken SubscribeActionEventListener<T>(object owner, Action<T> callback)
+        public SubscriptionToken Register<TEvent, TResult>(object owner, Func<TEvent, Task<TResult>> callback) where TEvent : IEvent<TResult>
         {
-            if (owner is SubscriptionToken) { throw new SubscriptionTokenOwnerException(); }
-            var listener = new ActionEventListener<T>(owner, callback);
-            lock (LockObj) { _listeners.Add(listener); }
-            return listener.Token;
+            return HandlerEventBus.Register(owner, callback);
         }
 
-        public SubscriptionToken Subscribe<TEvent, TResult>(object owner, Func<TEvent, Task<TResult>> callback) where TEvent : IEvent<TResult>
+        public SubscriptionToken Register<TEvent, TResult>(object owner, IEventHandler<TEvent, TResult> handler) where TEvent : IEvent<TResult>
         {
-            if (callback is null) { throw new NullHandlerException(); }
-            return SubscribeFuncEventListener(owner, callback);
+            return HandlerEventBus.Register(owner, handler);
         }
 
-        public SubscriptionToken Subscribe<TEvent, TResult>(object owner, IEventHandler<TEvent, TResult> handler) where TEvent : IEvent<TResult>
+        public void Remove(object owner)
         {
-            if (handler is null) { throw new NullHandlerException(); }
-            return SubscribeFuncEventListener<TEvent, TResult>(owner, handler.Handle);
+            ListenerEventBus.Remove(owner);
+            HandlerEventBus.Remove(owner);
         }
 
-        private SubscriptionToken SubscribeFuncEventListener<TEvent, TResult>(object owner, Func<TEvent, Task<TResult>> callback)
+        public void Remove(SubscriptionToken token)
         {
-            if (owner is SubscriptionToken) { throw new SubscriptionTokenOwnerException(); }
-            var listener = new FuncEventListener<TEvent, Task<TResult>>(owner, callback);
-            lock (LockObj) { _listeners.Add(listener); }
-            return listener.Token;
+            ListenerEventBus.Remove(token);
+            HandlerEventBus.Remove(token);
         }
 
-        public void Unsubscribe(object owner)
+        public void Notify(object @event)
         {
-            lock (LockObj)
-                _listeners.RemoveAll(x => x.Owner == owner);
+            ListenerEventBus.Notify(@event);
         }
 
-        public void Unsubscribe(SubscriptionToken token)
+        public async Task<TResult> Handle<TResult>(IEvent<TResult> @event)
         {
-            lock (LockObj)
-                _listeners.Remove(GetListener(token));
-        }
-
-        private IEventListener GetListener(SubscriptionToken token)
-        {
-            return _listeners.FirstOrDefault(x => x.Token == token);
-        }
-
-        public void Push(object @event)
-        {
-            var listeners = GetListenersForEvent(@event);
-            listeners.ForEach(listener => listener.Handle(@event));
-        }
-
-        private List<IEventListener> GetListenersForEvent(object @event)
-        {
-            lock (LockObj)
-                return _listeners
-                    .Where(listener => listener.ShouldHandle(@event))
-                    .ToList();
-        }
-
-        public async Task<TResult> Send<TResult>(IEvent<TResult> @event)
-        {
-            Task<TResult> task;
-            lock (LockObj)
-                task = (Task<TResult>)_listeners
-                    .FirstOrDefault(listener =>
-                        listener.ShouldHandle(@event)
-                    )
-                    ?.Handle(@event)
-                    ?? throw new Exception("Listener for this event could not be found");
-            return await task;
+            return await HandlerEventBus.Handle(@event);
         }
     }
 }

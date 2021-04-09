@@ -50,12 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bus\EventBusBaseTest.cs" />
-    <Compile Include="Bus\EventBusPushTest.cs" />
+    <Compile Include="Bus\EventBusNotifyTest.cs" />
     <Compile Include="Bus\EventBusSubscribeBaseTest.cs" />
     <Compile Include="Bus\EventBusSubscribeHandlerTest.cs" />
     <Compile Include="Bus\EventBusSubscribeCallbackTest.cs" />
     <Compile Include="Bus\EventBusThreadSafeTest.cs" />
-    <Compile Include="Bus\EventBusUnsubscribeTest.cs" />
+    <Compile Include="Bus\EventBusRemoveTest.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\StringEvent.cs" />
     <Compile Include="Models\StringHandler.cs" />

@@ -5,13 +5,13 @@ using System.Linq;
 namespace Unit_Tests.Bus
 {
     [TestClass]
-    public class EventBusUnsubscribeTest : EventBusBaseTest
+    public class EventBusRemoveTest : EventBusBaseTest
     {
         [TestMethod]
         public void RemovesListenerByToken()
         {
             var token = EventBus.Subscribe<string>(this, (x) => { });
-            EventBus.Unsubscribe(token);
+            EventBus.Remove(token);
 
             Assert.AreEqual(0, EventBus.Listeners.Count());
         }
@@ -19,14 +19,14 @@ namespace Unit_Tests.Bus
         [TestMethod]
         public void RemovesNothingWhenTokenIsNull()
         {
-            EventBus.Unsubscribe(null);
+            EventBus.Remove(null);
         }
 
         [TestMethod]
         public void RemovesNothingWhenTokenIsNonExisting()
         {
             var token = new SubscriptionToken();
-            EventBus.Unsubscribe(token);
+            EventBus.Remove(token);
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace Unit_Tests.Bus
             EventBus.Subscribe<string>(this, (x) => { });
             EventBus.Subscribe<string>(this, (x) => { });
 
-            EventBus.Unsubscribe(this);
+            EventBus.Remove(this);
 
             Assert.AreEqual(0, EventBus.Listeners.Count());
         }

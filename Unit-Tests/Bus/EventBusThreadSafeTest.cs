@@ -52,7 +52,7 @@ namespace Unit_Tests.Bus
                 for (var i = 0; i < iterations / 2; i++)
                 {
                     var token = tokens[i];
-                    EventBus.Unsubscribe(token);
+                    EventBus.Remove(token);
                 }
             });
             var thread2 = new Thread(() =>
@@ -60,7 +60,7 @@ namespace Unit_Tests.Bus
                 for (var i = iterations / 2; i < iterations; i++)
                 {
                     var token = tokens[i];
-                    EventBus.Unsubscribe(token);
+                    EventBus.Remove(token);
                 }
             });
             thread1.Start();
@@ -89,7 +89,7 @@ namespace Unit_Tests.Bus
                 for (var i = 0; i < iterations / 2; i++)
                 {
                     var owner = owners[i];
-                    EventBus.Unsubscribe(owner);
+                    EventBus.Remove(owner);
                 }
             });
             var thread2 = new Thread(() =>
@@ -97,7 +97,7 @@ namespace Unit_Tests.Bus
                 for (var i = iterations / 2; i < iterations; i++)
                 {
                     var owner = owners[i];
-                    EventBus.Unsubscribe(owner);
+                    EventBus.Remove(owner);
                 }
             });
             thread1.Start();
@@ -120,11 +120,11 @@ namespace Unit_Tests.Bus
 
             var thread1 = new Thread(() =>
             {
-                EventBus.Push("");
+                EventBus.Notify("");
             });
             var thread2 = new Thread(() =>
             {
-                EventBus.Push("");
+                EventBus.Notify("");
             });
             thread1.Start();
             thread2.Start();
@@ -140,7 +140,7 @@ namespace Unit_Tests.Bus
             var iterations = 10000;
             var counter = 0;
 
-            EventBus.Subscribe<StringEvent, string>(this, async (x) =>
+            EventBus.Register<StringEvent, string>(this, async (x) =>
             {
                 counter++;
                 return await Task.FromResult("");
@@ -149,12 +149,12 @@ namespace Unit_Tests.Bus
             var thread1 = new Thread(async () =>
             {
                 for (var i = 0; i < iterations; i++)
-                    await EventBus.Send(new StringEvent());
+                    await EventBus.Handle(new StringEvent());
             });
             var thread2 = new Thread(async () =>
             {
                 for (var i = 0; i < iterations; i++)
-                    await EventBus.Send(new StringEvent());
+                    await EventBus.Handle(new StringEvent());
             });
             thread1.Start();
             thread2.Start();

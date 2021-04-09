@@ -33,7 +33,7 @@ namespace Console_Playground
         {
             var eventBus = CreateEventBusExample();
             var token = eventBus.Subscribe<string>(this, (@event) => { /* implementation */ });
-            eventBus.Unsubscribe(token);
+            eventBus.Remove(token);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Console_Playground
             var eventBus = CreateEventBusExample();
             eventBus.Subscribe<string>(this, (@event) => { /* implementation */ });
             eventBus.Subscribe<int>(this, (@event) => { /* implementation */ });
-            eventBus.Unsubscribe(this);
+            eventBus.Remove(this);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Console_Playground
         {
             var eventBus = CreateEventBusExample();
             eventBus.Subscribe<string>(this, (@event) => { /* implementation */ });
-            eventBus.Push("example string");
+            eventBus.Notify("example string");
         }
     }
 }

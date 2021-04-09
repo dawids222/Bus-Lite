@@ -4,16 +4,16 @@ using Unit_Tests.Models;
 namespace Unit_Tests.Bus
 {
     [TestClass]
-    public class EventBusPushTest : EventBusBaseTest
+    public class EventBusNotifyTest : EventBusBaseTest
     {
         [TestMethod]
-        public void PushesEventToListeners()
+        public void NotifiesListenersAboutPushedEvent()
         {
             var expected = "success";
             var result = "";
             EventBus.Subscribe<string>(this, (x) => { result = x; });
 
-            EventBus.Push(expected);
+            EventBus.Notify(expected);
 
             Assert.AreEqual(expected, result);
         }
@@ -25,7 +25,7 @@ namespace Unit_Tests.Bus
             EventBus.Subscribe<string>(this, (x) => { counter++; });
             EventBus.Subscribe<int>(this, (x) => { counter++; });
 
-            EventBus.Push("");
+            EventBus.Notify("");
 
             Assert.AreEqual(1, counter);
         }
@@ -36,7 +36,7 @@ namespace Unit_Tests.Bus
             var counter = 0;
             EventBus.Subscribe<IEvent>(this, (x) => { counter++; });
 
-            EventBus.Push(new Event());
+            EventBus.Notify(new Event());
 
             Assert.AreEqual(1, counter);
         }
