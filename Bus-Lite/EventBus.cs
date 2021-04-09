@@ -15,12 +15,12 @@ namespace Bus_Lite
         public IEnumerable<IEventObserver> Listeners { get => ListenerEventBus.Observers; }
         public IEnumerable<IEventObserver> Handlers { get => HandlerEventBus.Observers; }
 
-        public ObserverToken Subscribe<T>(object owner, Action<T> callback)
+        public ObserverToken Subscribe<TEvent>(object owner, Action<TEvent> callback)
         {
             return ListenerEventBus.Subscribe(owner, callback);
         }
 
-        public ObserverToken Subscribe<T>(object owner, IEventListener<T> handler)
+        public ObserverToken Subscribe<TEvent>(object owner, IEventListener<TEvent> handler)
         {
             return ListenerEventBus.Subscribe(owner, handler);
         }

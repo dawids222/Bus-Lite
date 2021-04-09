@@ -10,22 +10,22 @@ namespace Bus_Lite.Buses
 {
     internal class ListenerEventBus : BaseEventBus
     {
-        public ObserverToken Subscribe<T>(object owner, Action<T> callback)
+        public ObserverToken Subscribe<TEvent>(object owner, Action<TEvent> callback)
         {
             if (callback is null) { throw new NullObserverException(); }
             return SubscribeListener(owner, callback);
         }
 
-        public ObserverToken Subscribe<T>(object owner, IEventListener<T> listener)
+        public ObserverToken Subscribe<TEvent>(object owner, IEventListener<TEvent> listener)
         {
             if (listener is null) { throw new NullObserverException(); }
-            return SubscribeListener<T>(owner, listener.OnNotify);
+            return SubscribeListener<TEvent>(owner, listener.OnNotify);
         }
 
-        private ObserverToken SubscribeListener<T>(object owner, Action<T> callback)
+        private ObserverToken SubscribeListener<TEvent>(object owner, Action<TEvent> callback)
         {
             if (owner is ObserverToken) { throw new ObserverTokenOwnerException(); }
-            var listener = new ActionEventObserver<T>(owner, callback);
+            var listener = new ActionEventObserver<TEvent>(owner, callback);
             lock (LockObj) { _observers.Add(listener); }
             return listener.Token;
         }
