@@ -19,7 +19,7 @@ namespace Console_Playground
         /// second argument is a callback function, where '@event' is 'string'
         /// method retuns token whitch is used to unsubscribing
         /// </summary>
-        public SubscriptionToken SubscribeListenerToEventBusExample()
+        public ObserverToken SubscribeListenerToEventBusExample()
         {
             var eventBus = CreateEventBusExample();
             var token = eventBus.Subscribe<string>(this, (@event) => { });

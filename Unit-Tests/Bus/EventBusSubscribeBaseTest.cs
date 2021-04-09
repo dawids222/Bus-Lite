@@ -8,7 +8,7 @@ namespace Unit_Tests.Bus
     [TestClass]
     public abstract class EventBusSubscribeBaseTest : EventBusBaseTest
     {
-        protected abstract SubscriptionToken SubscribeToBus();
+        protected abstract ObserverToken SubscribeToBus();
 
         [TestMethod]
         public void AddsListener()
@@ -44,7 +44,7 @@ namespace Unit_Tests.Bus
         {
             var token = SubscribeToBus();
 
-            Assert.IsTrue(token is SubscriptionToken);
+            Assert.IsTrue(token is ObserverToken);
         }
     }
 }

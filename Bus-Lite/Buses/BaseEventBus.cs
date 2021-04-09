@@ -6,26 +6,26 @@ namespace Bus_Lite.Buses
 {
     internal class BaseEventBus
     {
-        protected readonly List<IEventListener> _listeners = new List<IEventListener>();
-        public IEnumerable<IEventListener> Listeners { get => _listeners; }
+        protected readonly List<IEventObserver> _observers = new List<IEventObserver>();
+        public IEnumerable<IEventObserver> Observers { get => _observers; }
 
         protected object LockObj { get; } = new object();
 
         public void Remove(object owner)
         {
             lock (LockObj)
-                _listeners.RemoveAll(x => x.Owner == owner);
+                _observers.RemoveAll(x => x.Owner == owner);
         }
 
-        public void Remove(SubscriptionToken token)
+        public void Remove(ObserverToken token)
         {
             lock (LockObj)
-                _listeners.Remove(GetListener(token));
+                _observers.Remove(GetListener(token));
         }
 
-        private IEventListener GetListener(SubscriptionToken token)
+        private IEventObserver GetListener(ObserverToken token)
         {
-            return _listeners.FirstOrDefault(x => x.Token == token);
+            return _observers.FirstOrDefault(x => x.Token == token);
         }
     }
 }

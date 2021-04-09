@@ -2,9 +2,9 @@
 
 namespace Bus_Lite.Exceptions
 {
-    public class NullHandlerException : Exception
+    public class NullObserverException : Exception
     {
-        private const string ERROR_MESSAGE = "Subscribed NULL as an event handler";
-        public NullHandlerException() : base(ERROR_MESSAGE) { }
+        private const string ERROR_MESSAGE = "Subscribed NULL as an event observer";
+        public NullObserverException() : base(ERROR_MESSAGE) { }
     }
 }

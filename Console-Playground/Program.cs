@@ -1,6 +1,5 @@
 ﻿using Bus_Lite;
-using Bus_Lite.Events;
-using Bus_Lite.Handlers;
+using Bus_Lite.Contract;
 using System;
 using System.Threading.Tasks;
 
@@ -19,7 +18,7 @@ bus.Notify(new StringEvent("it works sync!"));
 record StringEvent(string Value) : IEvent<string> { }
 class IntEvent : IEvent<int> { }
 
-class StringEventHandler : IEventHandler<StringEvent, string>, IEventHandler<StringEvent>
+class StringEventHandler : IEventHandler<StringEvent, string>, IEventListener<StringEvent>
 {
     public async Task<string> Handle(StringEvent @event)
     {
@@ -27,7 +26,7 @@ class StringEventHandler : IEventHandler<StringEvent, string>, IEventHandler<Str
         return @event.Value;
     }
 
-    void IEventHandler<StringEvent>.Handle(StringEvent @event)
+    public void OnNotify(StringEvent @event)
     {
         Console.Write(@event.Value);
     }

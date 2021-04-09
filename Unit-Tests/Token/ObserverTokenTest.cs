@@ -5,14 +5,14 @@ using System;
 namespace Unit_Tests.Token
 {
     [TestClass]
-    public class SubscriptionTokenTest
+    public class ObserverTokenTest
     {
-        private SubscriptionToken Token { get; set; }
+        private ObserverToken Token { get; set; }
 
         [TestInitialize]
         public void Before()
         {
-            Token = new SubscriptionToken();
+            Token = new ObserverToken();
         }
 
         [TestMethod]
@@ -24,7 +24,7 @@ namespace Unit_Tests.Token
         [TestMethod]
         public void GuidIsUnique()
         {
-            var token = new SubscriptionToken();
+            var token = new ObserverToken();
 
             Assert.AreNotEqual(token.Guid, Token.Guid);
         }
@@ -32,7 +32,7 @@ namespace Unit_Tests.Token
         [TestMethod]
         public void GetHashCodeIsUnique()
         {
-            var token = new SubscriptionToken();
+            var token = new ObserverToken();
 
             Assert.AreNotEqual(token.GetHashCode(), Token.GetHashCode());
         }

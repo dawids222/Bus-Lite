@@ -8,13 +8,13 @@ namespace Unit_Tests.Bus
     [TestClass]
     public class EventBusSubscribeCallbackTest : EventBusSubscribeBaseTest
     {
-        protected override SubscriptionToken SubscribeToBus()
+        protected override ObserverToken SubscribeToBus()
         {
             return EventBus.Subscribe<string>(this, (x) => { });
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullHandlerException))]
+        [ExpectedException(typeof(NullObserverException))]
         public void CallbackCanNotBeNull()
         {
             Action<string> callback = null;

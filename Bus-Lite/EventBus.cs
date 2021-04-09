@@ -1,6 +1,5 @@
 ﻿using Bus_Lite.Buses;
-using Bus_Lite.Events;
-using Bus_Lite.Handlers;
+using Bus_Lite.Contract;
 using Bus_Lite.Listeners;
 using System;
 using System.Collections.Generic;
@@ -13,25 +12,25 @@ namespace Bus_Lite
         private ListenerEventBus ListenerEventBus { get; } = new ListenerEventBus();
         private HandlerEventBus HandlerEventBus { get; } = new HandlerEventBus();
 
-        public IEnumerable<IEventListener> Listeners { get => ListenerEventBus.Listeners; }
-        public IEnumerable<IEventListener> Handlers { get => HandlerEventBus.Listeners; }
+        public IEnumerable<IEventObserver> Listeners { get => ListenerEventBus.Observers; }
+        public IEnumerable<IEventObserver> Handlers { get => HandlerEventBus.Observers; }
 
-        public SubscriptionToken Subscribe<T>(object owner, Action<T> callback)
+        public ObserverToken Subscribe<T>(object owner, Action<T> callback)
         {
             return ListenerEventBus.Subscribe(owner, callback);
         }
 
-        public SubscriptionToken Subscribe<T>(object owner, IEventHandler<T> handler)
+        public ObserverToken Subscribe<T>(object owner, IEventListener<T> handler)
         {
             return ListenerEventBus.Subscribe(owner, handler);
         }
 
-        public SubscriptionToken Register<TEvent, TResult>(object owner, Func<TEvent, Task<TResult>> callback) where TEvent : IEvent<TResult>
+        public ObserverToken Register<TEvent, TResult>(object owner, Func<TEvent, Task<TResult>> callback) where TEvent : IEvent<TResult>
         {
             return HandlerEventBus.Register(owner, callback);
         }
 
-        public SubscriptionToken Register<TEvent, TResult>(object owner, IEventHandler<TEvent, TResult> handler) where TEvent : IEvent<TResult>
+        public ObserverToken Register<TEvent, TResult>(object owner, IEventHandler<TEvent, TResult> handler) where TEvent : IEvent<TResult>
         {
             return HandlerEventBus.Register(owner, handler);
         }
@@ -42,7 +41,7 @@ namespace Bus_Lite
             HandlerEventBus.Remove(owner);
         }
 
-        public void Remove(SubscriptionToken token)
+        public void Remove(ObserverToken token)
         {
             ListenerEventBus.Remove(token);
             HandlerEventBus.Remove(token);

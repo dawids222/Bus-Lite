@@ -25,7 +25,7 @@ namespace Unit_Tests.Bus
         [TestMethod]
         public void RemovesNothingWhenTokenIsNonExisting()
         {
-            var token = new SubscriptionToken();
+            var token = new ObserverToken();
             EventBus.Remove(token);
         }
 

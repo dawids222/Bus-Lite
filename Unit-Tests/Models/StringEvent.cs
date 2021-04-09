@@ -1,4 +1,4 @@
-﻿using Bus_Lite.Events;
+﻿using Bus_Lite.Contract;
 
 namespace Unit_Tests.Models
 {

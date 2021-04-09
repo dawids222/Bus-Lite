@@ -41,7 +41,7 @@ namespace Unit_Tests.Bus
         public void UnsubscribeByTokenIsThreadSafe()
         {
             var iterations = 10000;
-            var tokens = new List<SubscriptionToken>();
+            var tokens = new List<ObserverToken>();
             for (var i = 0; i < iterations; i++)
             {
                 var token = EventBus.Subscribe<string>(this, (x) => { });

@@ -52,7 +52,7 @@
     <Compile Include="Bus\EventBusBaseTest.cs" />
     <Compile Include="Bus\EventBusNotifyTest.cs" />
     <Compile Include="Bus\EventBusSubscribeBaseTest.cs" />
-    <Compile Include="Bus\EventBusSubscribeHandlerTest.cs" />
+    <Compile Include="Bus\EventBusSubscribeListenerTest.cs" />
     <Compile Include="Bus\EventBusSubscribeCallbackTest.cs" />
     <Compile Include="Bus\EventBusThreadSafeTest.cs" />
     <Compile Include="Bus\EventBusRemoveTest.cs" />
@@ -60,7 +60,7 @@
     <Compile Include="Models\StringEvent.cs" />
     <Compile Include="Models\StringHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Token\SubscriptionTokenTest.cs" />
+    <Compile Include="Token\ObserverTokenTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

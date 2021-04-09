@@ -1,9 +1,9 @@
-﻿using Bus_Lite.Handlers;
+﻿using Bus_Lite.Contract;
 
 namespace Unit_Tests.Models
 {
-    internal class StringHandler : IEventHandler<string>
+    internal class StringHandler : IEventListener<string>
     {
-        public void Handle(string @event) { }
+        public void OnNotify(string @event) { }
     }
 }
