@@ -1,4 +1,4 @@
-﻿namespace Bus_Lite.Contract
+﻿namespace LibLite.Bus.Lite.Contract
 {
     public interface IEvent<TResult> { }
 }

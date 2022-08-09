@@ -1,12 +1,12 @@
-﻿using Bus_Lite;
+﻿using LibLite.Bus.Lite;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Unit_Tests.Models;
+using LibLite.Bus.Lite.Tests.Models;
 
-namespace Unit_Tests.Bus.Safety
+namespace LibLite.Bus.Lite.Tests.Bus.Safety
 {
     [TestClass]
     public class EventBusThreadSafeTest : EventBusBaseTest

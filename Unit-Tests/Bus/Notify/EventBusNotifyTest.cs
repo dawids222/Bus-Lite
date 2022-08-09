@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Unit_Tests.Models;
+using LibLite.Bus.Lite.Tests.Models;
 
-namespace Unit_Tests.Bus.Notify
+namespace LibLite.Bus.Lite.Tests.Bus.Notify
 {
     [TestClass]
     public class EventBusNotifyTest : EventBusBaseTest

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Bus_Lite.Contract
+namespace LibLite.Bus.Lite.Contract
 {
     public interface IEventHandler<TEvent, TResult>
     {

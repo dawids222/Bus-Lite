@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bus_Lite.Exceptions
+namespace LibLite.Bus.Lite.Exceptions
 {
     public class ObserverTokenOwnerException : Exception
     {

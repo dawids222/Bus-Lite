@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bus_Lite
+namespace LibLite.Bus.Lite
 {
     public class ObserverToken
     {

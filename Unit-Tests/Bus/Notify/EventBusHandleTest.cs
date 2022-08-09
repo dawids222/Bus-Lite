@@ -1,9 +1,9 @@
-﻿using Bus_Lite.Contract;
+﻿using LibLite.Bus.Lite.Contract;
+using LibLite.Bus.Lite.Tests.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
-using Unit_Tests.Models;
 
-namespace Unit_Tests.Bus.Notify
+namespace LibLite.Bus.Lite.Tests.Bus.Notify
 {
     [TestClass]
     public class EventBusHandleTest : EventBusBaseTest

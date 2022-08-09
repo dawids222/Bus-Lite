@@ -1,11 +1,11 @@
-﻿using Bus_Lite.Buses;
-using Bus_Lite.Contract;
-using Bus_Lite.Listeners;
+﻿using LibLite.Bus.Lite.Buses;
+using LibLite.Bus.Lite.Contract;
+using LibLite.Bus.Lite.Listeners;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Bus_Lite
+namespace LibLite.Bus.Lite
 {
     public class EventBus
     {

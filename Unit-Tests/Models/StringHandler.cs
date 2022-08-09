@@ -1,7 +1,7 @@
-﻿using Bus_Lite.Contract;
+﻿using LibLite.Bus.Lite.Contract;
 using System.Threading.Tasks;
 
-namespace Unit_Tests.Models
+namespace LibLite.Bus.Lite.Tests.Models
 {
     internal class StringHandler : IEventHandler<StringEvent, string>
     {

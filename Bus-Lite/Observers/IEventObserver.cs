@@ -1,4 +1,4 @@
-﻿namespace Bus_Lite.Listeners
+﻿namespace LibLite.Bus.Lite.Listeners
 {
     public interface IEventObserver
     {

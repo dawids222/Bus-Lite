@@ -1,8 +1,7 @@
-﻿using Bus_Lite;
-using Bus_Lite.Contract;
+﻿using LibLite.Bus.Lite.Contract;
 using System.Threading.Tasks;
 
-namespace Console_Playground
+namespace LibLite.Bus.Lite.Playground
 {
     class Examples
     {

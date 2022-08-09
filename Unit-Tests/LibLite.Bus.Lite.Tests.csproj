@@ -73,9 +73,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bus-Lite\Bus-Lite.csproj">
+    <ProjectReference Include="..\Bus-Lite\LibLite.Bus.Lite.csproj">
       <Project>{3438468B-B4B8-4315-BFCF-F29E0852A0AE}</Project>
-      <Name>Bus-Lite</Name>
+      <Name>LibLite.Bus.Lite</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -1,6 +1,6 @@
-﻿using Bus_Lite.Contract;
+﻿using LibLite.Bus.Lite.Contract;
 
-namespace Unit_Tests.Models
+namespace LibLite.Bus.Lite.Tests.Models
 {
     class StringEvent : IEvent<string>
     {

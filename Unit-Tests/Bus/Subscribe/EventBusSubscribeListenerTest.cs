@@ -1,12 +1,12 @@
-﻿using Bus_Lite;
-using Bus_Lite.Contract;
-using Bus_Lite.Exceptions;
-using Bus_Lite.Listeners;
+﻿using LibLite.Bus.Lite;
+using LibLite.Bus.Lite.Contract;
+using LibLite.Bus.Lite.Exceptions;
+using LibLite.Bus.Lite.Listeners;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using Unit_Tests.Models;
+using LibLite.Bus.Lite.Tests.Models;
 
-namespace Unit_Tests.Bus.Subscribe
+namespace LibLite.Bus.Lite.Tests.Bus.Subscribe
 {
     [TestClass]
     public class EventBusSubscribeListenerTest : EventBusSubscribeBaseTest

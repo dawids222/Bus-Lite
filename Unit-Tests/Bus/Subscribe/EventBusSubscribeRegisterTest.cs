@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Threading.Tasks;
-using Unit_Tests.Models;
+using LibLite.Bus.Lite.Tests.Models;
 
-namespace Unit_Tests.Bus.Subscribe
+namespace LibLite.Bus.Lite.Tests.Bus.Subscribe
 {
     [TestClass]
     public class EventBusSubscribeRegisterTest : EventBusBaseTest

@@ -1,12 +1,12 @@
-﻿using Bus_Lite.Contract;
-using Bus_Lite.Exceptions;
-using Bus_Lite.Listeners;
-using Bus_Lite.Observers;
+﻿using LibLite.Bus.Lite.Contract;
+using LibLite.Bus.Lite.Exceptions;
+using LibLite.Bus.Lite.Listeners;
+using LibLite.Bus.Lite.Observers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bus_Lite.Buses
+namespace LibLite.Bus.Lite.Buses
 {
     internal class ListenerEventBus : BaseEventBus
     {

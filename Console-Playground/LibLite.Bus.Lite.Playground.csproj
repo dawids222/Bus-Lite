@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bus-Lite\Bus-Lite.csproj" />
+    <ProjectReference Include="..\Bus-Lite\LibLite.Bus.Lite.csproj" />
   </ItemGroup>
 
 </Project>

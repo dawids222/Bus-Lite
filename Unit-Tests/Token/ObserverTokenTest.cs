@@ -1,8 +1,8 @@
-﻿using Bus_Lite;
+﻿using LibLite.Bus.Lite;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Unit_Tests.Token
+namespace LibLite.Bus.Lite.Tests.Token
 {
     [TestClass]
     public class ObserverTokenTest

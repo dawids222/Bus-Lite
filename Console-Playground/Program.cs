@@ -1,5 +1,5 @@
-﻿using Bus_Lite;
-using Bus_Lite.Contract;
+﻿using LibLite.Bus.Lite;
+using LibLite.Bus.Lite.Contract;
 using System;
 using System.Threading.Tasks;
 

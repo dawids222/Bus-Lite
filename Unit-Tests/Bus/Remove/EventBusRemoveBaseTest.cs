@@ -1,10 +1,10 @@
-﻿using Bus_Lite;
-using Bus_Lite.Listeners;
+﻿using LibLite.Bus.Lite;
+using LibLite.Bus.Lite.Listeners;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Unit_Tests.Bus.Remove
+namespace LibLite.Bus.Lite.Tests.Bus.Remove
 {
     [TestClass]
     public abstract class EventBusRemoveBaseTest : EventBusBaseTest

@@ -1,6 +1,6 @@
-﻿using Bus_Lite.Listeners;
+﻿using LibLite.Bus.Lite.Listeners;
 
-namespace Bus_Lite.Observers
+namespace LibLite.Bus.Lite.Observers
 {
     public abstract class BaseEventObserver<TEvent> : IEventObserver
     {

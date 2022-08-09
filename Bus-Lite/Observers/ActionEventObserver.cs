@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bus_Lite.Observers
+namespace LibLite.Bus.Lite.Observers
 {
     public class ActionEventObserver<TEvent> : BaseEventObserver<TEvent>
     {
