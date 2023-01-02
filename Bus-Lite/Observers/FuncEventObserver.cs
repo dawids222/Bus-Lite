@@ -4,7 +4,7 @@ namespace LibLite.Bus.Lite.Observers
 {
     public class FuncEventObserver<TEvent, TResult> : BaseEventObserver<TEvent>
     {
-        public Func<TEvent, TResult> Callback { get; }
+        private Func<TEvent, TResult> Callback { get; }
 
         public FuncEventObserver(object owner, Func<TEvent, TResult> callback) : base(owner)
         {

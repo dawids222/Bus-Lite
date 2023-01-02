@@ -12,8 +12,8 @@ namespace LibLite.Bus.Lite
         private ListenerEventBus ListenerEventBus { get; } = new ListenerEventBus();
         private HandlerEventBus HandlerEventBus { get; } = new HandlerEventBus();
 
-        public IEnumerable<IEventObserver> Listeners { get => ListenerEventBus.Observers; }
-        public IEnumerable<IEventObserver> Handlers { get => HandlerEventBus.Observers; }
+        public IEnumerable<IEventObserver> Listeners => ListenerEventBus.Observers;
+        public IEnumerable<IEventObserver> Handlers => HandlerEventBus.Observers;
 
         public ObserverToken Subscribe<TEvent>(object owner, Action<TEvent> callback)
         {

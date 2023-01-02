@@ -1,4 +1,5 @@
 ﻿using LibLite.Bus.Lite.Listeners;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,26 +7,50 @@ namespace LibLite.Bus.Lite.Buses
 {
     internal class BaseEventBus
     {
-        protected readonly List<IEventObserver> _observers = new List<IEventObserver>();
-        public IEnumerable<IEventObserver> Observers { get => _observers; }
+        protected readonly IDictionary<Type, List<IEventObserver>> _observers = new Dictionary<Type, List<IEventObserver>>();
+        public IEnumerable<IEventObserver> Observers { get => _observers.Values.SelectMany(x => x).ToList(); }
 
         protected object LockObj { get; } = new object();
 
-        public void Remove(object owner)
+        protected void Add<TEvent>(IEventObserver observer)
         {
             lock (LockObj)
-                _observers.RemoveAll(x => x.Owner == owner);
+            {
+                var type = typeof(TEvent);
+                if (!_observers.ContainsKey(type))
+                    _observers.Add(type, new List<IEventObserver>());
+                var observers = _observers[type];
+                observers.Add(observer);
+            }
+        }
+
+        public void Remove(object owner)
+        {
+            Remove(x => x.Owner == owner);
         }
 
         public void Remove(ObserverToken token)
         {
-            lock (LockObj)
-                _observers.Remove(GetListener(token));
+            Remove(x => x.Token == token);
         }
 
-        private IEventObserver GetListener(ObserverToken token)
+        private void Remove(Predicate<IEventObserver> predicate)
         {
-            return _observers.FirstOrDefault(x => x.Token == token);
+            lock (LockObj)
+            {
+                var keysToRemove = new List<Type>();
+                foreach (var observers in _observers)
+                {
+                    var values = observers.Value;
+                    values.RemoveAll(predicate);
+                    if (!values.Any())
+                        keysToRemove.Add(observers.Key);
+                }
+                foreach (var key in keysToRemove)
+                {
+                    _observers.Remove(key);
+                }
+            }
         }
     }
 }

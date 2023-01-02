@@ -4,7 +4,6 @@
     {
         object Owner { get; }
         ObserverToken Token { get; }
-        bool ShouldInvoke(object @event);
         object Invoke(object @event);
     }
 }

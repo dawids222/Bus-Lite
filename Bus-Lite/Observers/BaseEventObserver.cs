@@ -13,11 +13,6 @@ namespace LibLite.Bus.Lite.Observers
             Token = new ObserverToken();
         }
 
-        public virtual bool ShouldInvoke(object @event)
-        {
-            return @event is TEvent;
-        }
-
         public abstract object Invoke(object @event);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using LibLite.Bus.Lite.Contract;
+using LibLite.Bus.Lite.Exceptions;
 using LibLite.Bus.Lite.Tests.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
@@ -68,7 +69,7 @@ namespace LibLite.Bus.Lite.Tests.Bus.Notify
         }
 
         [TestMethod]
-        public async Task HandlersWorksWithGenericEvents()
+        public async Task HandlersDoNowWorkWithGenericEvents()
         {
             var @event = new StringEvent();
             var counter = 0;
@@ -78,9 +79,10 @@ namespace LibLite.Bus.Lite.Tests.Bus.Notify
                 return Task.FromResult("");
             });
 
-            await EventBus.Handle(@event);
+            Task act() => EventBus.Handle(@event);
 
-            Assert.AreEqual(1, counter);
+            Assert.ThrowsExceptionAsync<HandlerNotRegisteredException>(act);
+            Assert.AreEqual(0, counter);
         }
     }
 }

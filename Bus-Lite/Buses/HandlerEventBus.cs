@@ -25,25 +25,19 @@ namespace LibLite.Bus.Lite.Buses
         {
             if (owner is ObserverToken) { throw new ObserverTokenOwnerException(); }
             var handler = new FuncEventObserver<TEvent, Task<TResult>>(owner, callback);
-            lock (LockObj) { _observers.Add(handler); }
+            Add<TEvent>(handler);
             return handler.Token;
         }
 
-        public async Task<TResult> Handle<TResult>(IEvent<TResult> @event)
+        public Task<TResult> Handle<TResult>(IEvent<TResult> @event)
         {
-            Task<TResult> task;
             lock (LockObj)
-                task = GetHandlersTask(@event);
-            return await task;
-        }
-
-        private Task<TResult> GetHandlersTask<TResult>(IEvent<TResult> @event)
-        {
-            var task = _observers.FirstOrDefault(listener =>
-                listener.ShouldInvoke(@event)
-            );
-            if (task is null) { throw new HandlerNotRegisteredException(); }
-            return (Task<TResult>)task.Invoke(@event);
+            {
+                var exists = _observers.TryGetValue(@event.GetType(), out var observers);
+                if (!exists) { throw new HandlerNotRegisteredException(); }
+                var observer = observers.First();
+                return (Task<TResult>)observer.Invoke(@event);
+            }
         }
     }
 }

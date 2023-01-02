@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LibLite.Bus.Lite.Tests.Models;
+﻿using LibLite.Bus.Lite.Tests.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LibLite.Bus.Lite.Tests.Bus.Notify
 {
@@ -22,11 +22,11 @@ namespace LibLite.Bus.Lite.Tests.Bus.Notify
         public void NotifiesMultipleListenersAboutPushedEvent()
         {
             var counter = 0;
-            EventBus.Subscribe<IEvent>(this, (x) => { counter++; });
-            EventBus.Subscribe<IEvent>(this, (x) => { counter++; });
-            EventBus.Subscribe<IEvent>(this, (x) => { counter++; });
-            EventBus.Subscribe<IEvent>(this, (x) => { counter++; });
-            EventBus.Subscribe<IEvent>(this, (x) => { counter++; });
+            EventBus.Subscribe<Event>(this, (x) => { counter++; });
+            EventBus.Subscribe<Event>(this, (x) => { counter++; });
+            EventBus.Subscribe<Event>(this, (x) => { counter++; });
+            EventBus.Subscribe<Event>(this, (x) => { counter++; });
+            EventBus.Subscribe<Event>(this, (x) => { counter++; });
 
             EventBus.Notify(new Event());
 
@@ -46,14 +46,14 @@ namespace LibLite.Bus.Lite.Tests.Bus.Notify
         }
 
         [TestMethod]
-        public void ListenersWorksWithGenericEvents()
+        public void ListenersDoNotWorkWithGenericEvents()
         {
             var counter = 0;
             EventBus.Subscribe<IEvent>(this, (x) => { counter++; });
 
             EventBus.Notify(new Event());
 
-            Assert.AreEqual(1, counter);
+            Assert.AreEqual(0, counter);
         }
     }
 }

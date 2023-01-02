@@ -26,22 +26,20 @@ namespace LibLite.Bus.Lite.Buses
         {
             if (owner is ObserverToken) { throw new ObserverTokenOwnerException(); }
             var listener = new ActionEventObserver<TEvent>(owner, callback);
-            lock (LockObj) { _observers.Add(listener); }
+            Add<TEvent>(listener);
             return listener.Token;
         }
 
         public void Notify(object @event)
         {
-            var listeners = GetListenersForEvent(@event);
-            listeners.ForEach(listener => listener.Invoke(@event));
-        }
-
-        private List<IEventObserver> GetListenersForEvent(object @event)
-        {
             lock (LockObj)
-                return _observers
-                    .Where(listener => listener.ShouldInvoke(@event))
-                    .ToList();
+            {
+                var exists = _observers.TryGetValue(@event.GetType(), out var observers);
+                var listeners = exists
+                    ? observers.ToList()
+                    : new List<IEventObserver>();
+                listeners.ForEach(listener => listener.Invoke(@event));
+            }
         }
     }
 }

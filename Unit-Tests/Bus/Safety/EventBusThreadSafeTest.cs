@@ -1,10 +1,9 @@
-﻿using LibLite.Bus.Lite;
+﻿using LibLite.Bus.Lite.Tests.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using LibLite.Bus.Lite.Tests.Models;
 
 namespace LibLite.Bus.Lite.Tests.Bus.Safety
 {
