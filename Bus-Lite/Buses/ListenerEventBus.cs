@@ -38,7 +38,11 @@ namespace LibLite.Bus.Lite.Buses
                 var listeners = exists
                     ? observers.ToList()
                     : new List<IEventObserver>();
-                listeners.ForEach(listener => listener.Invoke(@event));
+                listeners.ForEach(listener =>
+                {
+                    try { listener.Invoke(@event); }
+                    catch (Exception) { }
+                });
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using LibLite.Bus.Lite.Tests.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace LibLite.Bus.Lite.Tests.Bus.Notify
 {
@@ -54,6 +55,18 @@ namespace LibLite.Bus.Lite.Tests.Bus.Notify
             EventBus.Notify(new Event());
 
             Assert.AreEqual(0, counter);
+        }
+
+        [TestMethod]
+        public void ListenersDoNotThrow()
+        {
+            var counter = 0;
+            EventBus.Subscribe<Event>(this, (x) => { throw new Exception(); });
+            EventBus.Subscribe<Event>(this, (x) => { counter++; });
+
+            EventBus.Notify(new Event());
+
+            Assert.AreEqual(1, counter);
         }
     }
 }
